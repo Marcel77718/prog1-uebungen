@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="prog1-uebungen">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Aufgabe5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Aufgabe6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Einstieg.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Aufgabe4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
