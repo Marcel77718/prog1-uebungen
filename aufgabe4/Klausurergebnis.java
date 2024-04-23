@@ -30,6 +30,7 @@ import java.util.Scanner;
  * @author Marcel Friesen
  * @version 22.04.2024
  */
+@SuppressWarnings("ALL")
 public final class Klausurergebnis {
     private Klausurergebnis() { }
 
@@ -52,8 +53,15 @@ public final class Klausurergebnis {
             //---------------------------------------------- Eingabe pruefen
 
             /* TODO: (1) note pruefen ... */
-            System.out.println(Noten.toDouble(note));
-            System.out.println(Noten.istZulaessig(note));
+            /* try {
+                System.out.println(Noten.toString(Double.parseDouble(note)));
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+
+             */
+            // System.out.println(Noten.istBestanden(Double.parseDouble(note)));
+            System.out.println(Noten.bessere(Double.parseDouble(note), Double.parseDouble(note)));
 
 
             //------------------------------------------------ Note erfassen
