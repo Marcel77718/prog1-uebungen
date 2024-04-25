@@ -2,8 +2,8 @@ package aufgabe4;
 
 public class Noten {
 
-    public static double BESTE;
-    public static double SCHLECHTESTE;
+    public static double BESTE = 1.0;
+    public static double SCHLECHTESTE = 5.0;
 
 
     public static boolean istZulaessig(String note) {
@@ -25,10 +25,10 @@ public class Noten {
                         case 7:
                             return true;
                         default:
-                        }
                     }
                 }
             }
+        }
         return false;
     }
 
@@ -36,9 +36,34 @@ public class Noten {
 
         if (istZulaessig(note)) {
             return Double.parseDouble(note);
-    } else {
-            throw new IllegalArgumentException("ungültige Zahl");
         }
+                throw new IllegalArgumentException("Ungültige Note: " + note);
+    }
+
+    public static String toString(double note) {
+
+        if (note >= BESTE && note <= SCHLECHTESTE) {
+            return String.format("%.1f", note);
+        }
+            throw new IllegalArgumentException(note + " liegt nicht im Bereich 1.0 bis 5.0");
+    }
+
+    public static boolean istBestanden(double note) {
+        if (note <= 4.0) {
+            return true;
+        } return false;
+    }
+
+    public static double bessere(double note1, double note2) {
+        if (note1 > note2) {
+            return note2;
+        } return note1;
+    }
+
+
+    public static double schlechtere(double note1, double note2) {
+        if (note1 < note2);
+        return note2;
     }
 }
 
