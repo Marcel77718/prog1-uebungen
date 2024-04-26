@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Das Programm liest Noten als Strings ein und bestimmt die beste und
  * die schlechteste Note, den Durchschnitt der Bestandenen sowie
  * die Durchfallquote in Prozent.
- * Das Programm ber&uuml;cksichtigt dabei nur die laut Noten.istZulaessig
+ * Das Programm berücksichtigt dabei nur die laut Noten.istZulaessig
  * erlaubten Noten. Andere Noten werden unter Ausgabe einer Warnung ignoriert.
  * Welche Noten besser und schlechter sind, welche als bestanden oder
  * durchgefallen gelten und wie die String-Darstellung der Noten aussieht,
@@ -19,7 +19,7 @@ import java.util.Scanner;
  * </p>
  * Das Programm gibt als Klausurergebnis folgende Werte aus:
  * <ul>
- * <li>die Anzahl der ber&uuml;cksichtigten Noten</li>
+ * <li>die Anzahl der berücksichtigten Noten</li>
  * <li>die Anzahl der Bestandenen</li>
  * <li>die beste Note</li>
  * <li>die schlechteste Note</li>
@@ -30,9 +30,15 @@ import java.util.Scanner;
  * @author Marcel Friesen
  * @version 22.04.2024
  */
-@SuppressWarnings("ALL")
+
 public final class Klausurergebnis {
     private Klausurergebnis() { }
+
+    static int anzahlBeruecksichtigte = 0;
+    static int bestanden = 0;
+    static double beste = 1.0;
+    static double schlechteste = 6.0;
+    static double durchschnittSumme = 0.0;
 
     private static final Scanner EINGABE = new Scanner(System.in);
 
@@ -50,18 +56,32 @@ public final class Klausurergebnis {
         while (EINGABE.hasNext()) {
             String note = EINGABE.next();
 
-            //---------------------------------------------- Eingabe pruefen
+            //---------------------------------------------- Eingabe prüfen
 
-            /* TODO: (1) note pruefen ... */
-            /* try {
-                System.out.println(Noten.toString(Double.parseDouble(note)));
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+            /* TODO: (1) note prüfen ... */
+
+            try {
+                if (Noten.istZulaessig(note)) {
+                    Noten.toString(Noten.toDouble(note));
+                    {
+                        anzahlBeruecksichtigte++;
+                        beste = Noten.bessere(beste, Noten.toDouble(note));
+                        schlechteste = Noten.schlechtere(schlechteste, Noten.toDouble(note));
+                        if (Noten.istBestanden(Noten.toDouble(note))) {
+                            bestanden++;
+                            durchschnittSumme += Noten.toDouble(note);
+
+                        }
+                    }
+                } else {
+                    System.err.println("Unzulässige Note " + note + " wird ignoriert!");
+                }
+            }
+            catch (IllegalArgumentException e) {
+                System.err.println("Unzulässige Note " + note + " wird ignoriert!");
             }
 
-             */
-            // System.out.println(Noten.istBestanden(Double.parseDouble(note)));
-            System.out.println(Noten.bessere(Double.parseDouble(note), Double.parseDouble(note)));
+
 
 
             //------------------------------------------------ Note erfassen
@@ -70,14 +90,21 @@ public final class Klausurergebnis {
                          Anzahl Durchgefallene sowie
                          beste und schlechteste Note aktualisieren ... */
 
-
         } // while
 
         //------------------------------------------ Notenstatistik ausgeben
 
         /* TODO: (3) Durchschnitt und Durchfallquote berechnen
                      und dann die gesamte Statistik ausgeben ... */
+        double durchschnittBestandene = durchschnittSumme / bestanden;
+        double durchfallquote = ((anzahlBeruecksichtigte - bestanden) / (double) anzahlBeruecksichtigte) * 100;
 
+        System.out.println("Anzahl Beruecksichtigter Noten:  " + anzahlBeruecksichtigte);
+        System.out.println("Anzahl Bestandene: " + bestanden);
+        System.out.println("Beste Note: " + schlechteste);
+        System.out.println("Schlechteste Note:  " + beste);
+        System.out.printf("Durchschnitt Bestandene: %.1f%n", durchschnittBestandene);
+        System.out.printf("Durchfallquote: %.1f%%%n", durchfallquote);
 
     } // main
 }

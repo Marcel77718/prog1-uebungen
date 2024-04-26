@@ -35,35 +35,30 @@ public class Noten {
     public static double toDouble(String note) {
 
         if (istZulaessig(note)) {
-            return Double.parseDouble(note);
+            return Double.parseDouble(note.replace(',','.'));
         }
-                throw new IllegalArgumentException("Ungültige Note: " + note);
+                throw new IllegalArgumentException("Unzulässige Note: " + note + " wird ignoriert!");
     }
 
     public static String toString(double note) {
 
-        if (note >= BESTE && note <= SCHLECHTESTE) {
+        if (note >= BESTE && note <= SCHLECHTESTE || note == 5.0) {
             return String.format("%.1f", note);
         }
-            throw new IllegalArgumentException(note + " liegt nicht im Bereich 1.0 bis 5.0");
+            throw new IllegalArgumentException("Unzulässige Note: " + note + " wird ignoriert! :(");
     }
 
     public static boolean istBestanden(double note) {
-        if (note <= 4.0) {
-            return true;
-        } return false;
+        return note <= 4.0;
     }
 
     public static double bessere(double note1, double note2) {
-        if (note1 > note2) {
-            return note2;
-        } return note1;
+        return note1 < note2 ? note2 : note1;
     }
 
 
     public static double schlechtere(double note1, double note2) {
-        if (note1 < note2);
-        return note2;
+        return note1 < note2 ? note1 : note2;
     }
 }
 
