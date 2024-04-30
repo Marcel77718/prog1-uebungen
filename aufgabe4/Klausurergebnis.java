@@ -1,6 +1,7 @@
 // Klausurergebnis.java
 package aufgabe4;
 //import aufgabe4.schweiz.Noten;
+
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -32,7 +33,8 @@ import java.util.Scanner;
  */
 
 public final class Klausurergebnis {
-    private Klausurergebnis() { }
+    private Klausurergebnis() {
+    }
 
     static int anzahlBeruecksichtigte = 0;
     static int bestanden = 0;
@@ -44,6 +46,7 @@ public final class Klausurergebnis {
 
     /**
      * main ist der Startpunkt des Programms.
+     *
      * @param args wird nicht verwendet.
      */
     public static void main(String[] args) {
@@ -51,7 +54,7 @@ public final class Klausurergebnis {
 
         //--------------------------------------------------- Noten einlesen
         System.out.println("Noten im Format Ganze,Zehntel "
-                           + "oder Ganze.Zehntel eingeben (Ende mit Strg-D):");
+                + "oder Ganze.Zehntel eingeben (Ende mit Strg-D):");
 
         while (EINGABE.hasNext()) {
             String note = EINGABE.next();
@@ -59,7 +62,6 @@ public final class Klausurergebnis {
             //---------------------------------------------- Eingabe prüfen
 
             /* TODO: (1) note prüfen ... */
-
             try {
                 if (Noten.istZulaessig(note)) {
                     Noten.toString(Noten.toDouble(note));
@@ -76,12 +78,9 @@ public final class Klausurergebnis {
                 } else {
                     System.err.println("Unzulässige Note " + note + " wird ignoriert!");
                 }
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.err.println("Unzulässige Note " + note + " wird ignoriert!");
             }
-
-
 
 
             //------------------------------------------------ Note erfassen
