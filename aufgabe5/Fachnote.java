@@ -1,8 +1,8 @@
 package aufgabe5;
 
 public class Fachnote {
-    public static String fach;
-    public static Note note;
+    public final String fach;
+    public final Note note;
 
     public Fachnote(String fach, Note note) {
         if (fach == null || note == null || fach.isEmpty()) {

@@ -2,7 +2,7 @@ package aufgabe5;
 
 import java.util.Objects;
 
-public class Note {
+public final class Note {
 
     private final int note;
 
@@ -13,18 +13,33 @@ public class Note {
     public static final Note BESTE = new Note(1);
     public static final Note SCHLECHTESTE = new Note(5);
 
-    public static Note valueOf(int note) {
-        return switch (note) {
-            case 10, 13, 17, 20, 23, 27, 30, 33, 37, 40, 50 -> new Note(note);
-            default -> throw new IllegalArgumentException("unzulässige Note: " + note);
+    public static Note valueOf(int wert) {
+        return switch (wert) {
+            case 10, 13, 17, 20, 23, 27, 30, 33, 37, 40, 50 -> new Note(wert);
+            default -> throw new IllegalArgumentException("unzulässige Note: " + wert);
         };
     }
 
-    public static void valueOf(String note) {
-        if (!(Objects.equals(note, String.format("%d,0", Integer.parseInt(note))))) {
-            throw new IllegalArgumentException("unzulässige Note: " + note);
+    public static Note valueOf(String wert) {
+        wert = wert.replace(',', '.');
+        switch (wert) {
+            case "1.0":
+            case "1.3":
+            case "1.7":
+            case "2.0":
+            case "2.3":
+            case "2.7":
+            case "3.0":
+            case "3.3":
+            case "3.7":
+            case "4.0":
+            case "5.0":
+                return new Note((int) Double.parseDouble(wert) * 10);
+            default:
+                throw new IllegalArgumentException("unzulässige Note: " + wert);
         }
     }
+
 
     public int intValue() {
         return note;
@@ -36,13 +51,14 @@ public class Note {
 
     @Override
     public String toString() {
-        return String.format("%d,0", note);
+        return ("" + (note / 10.0)).replace('.', ',');
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Note other) {
-            return note == other.note;
+        if (o instanceof Note ) {
+            Note n = (Note) o;
+            return note == n.intValue();
         }
         return false;
     }
